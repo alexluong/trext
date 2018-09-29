@@ -5,8 +5,9 @@ import HomePage from "pages/Home"
 import SignInPage from "pages/auth/SignIn"
 import SignUpPage from "pages/auth/SignUp"
 import NotFoundPage from "pages/NotFound"
-import ChatPage from "pages/Chat"
-import Settings from "pages/Chat/components/Settings"
+import ConversationsPage from "pages/chat/Conversations"
+import MessagesPage from "pages/chat/Messages"
+import SettingsPage from "pages/Settings"
 
 const Routes = () => (
   <BrowserRouter>
@@ -14,8 +15,9 @@ const Routes = () => (
       <Route exact path="/" component={HomePage} />
       <Route path="/sign-in" component={SignInPage} />
       <Route path="/sign-up" component={SignUpPage} />
-      <Route path="/chat" component={ChatPage} />
-      <Route path="/settings" component={Settings} />
+      <Route path="/chat/:id" component={MessagesPage} />
+      <Route path="/chat" component={ConversationsPage} />
+      <Route path="/settings" component={SettingsPage} />
       <Route component={NotFoundPage} />
     </Switch>
   </BrowserRouter>
