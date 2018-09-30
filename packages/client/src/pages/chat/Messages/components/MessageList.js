@@ -9,8 +9,9 @@ class MessageList extends React.Component {
   componentDidMount() {
     this.socket = io("http://localhost:8000")
     this.socket.on("NEW_MESSAGE", message => {
-      // this.setState({ messages: [...this.state.messages, data] })
-      console.log(message)
+      this.setState(prevState => ({
+        messages: [...this.state.messages, message],
+      }))
     })
   }
 
@@ -25,19 +26,18 @@ class MessageList extends React.Component {
     return (
       <div className="message-list">
         {messages.length > 0 ? (
-          messages.map(
-            msg =>
-              console.log(msg) || (
-                <div
-                  key={msg._id}
-                  className={`message-list__item ${
-                    msg.author === userNumber ? "message-list__item--user" : ""
-                  }`}
-                >
-                  <span>{msg.translation}</span>
-                </div>
-              ),
-          )
+          messages.map(msg => (
+            <div
+              key={msg._id}
+              className={`message-list__item ${
+                msg.author === userNumber ? "message-list__item--user" : ""
+              }`}
+            >
+              <span>
+                {msg.author === userNumber ? msg.body : msg.translation}
+              </span>
+            </div>
+          ))
         ) : (
           <p>No messages</p>
         )}

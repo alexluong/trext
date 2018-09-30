@@ -1,4 +1,5 @@
 import React from "react"
+import { stringify } from "querystring"
 
 const UserContext = React.createContext({})
 
@@ -16,6 +17,7 @@ class UserProvider extends React.Component {
   }
 
   setUser = user => {
+    localStorage.setItem("user", JSON.stringify(user))
     this.setState({ user })
   }
 

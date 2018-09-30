@@ -7,7 +7,7 @@ export function getConversations(number) {
     let error, response
     ;[error, response] = await to(
       axios.get(`${config.serverUrl}/chat/getAll`, {
-        params: { number: number.slice(1) },
+        params: { number: number ? number.slice(1) : null },
       }),
     )
 
