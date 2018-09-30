@@ -16,7 +16,13 @@ const Nav = ({ onClick }) => (
 const AppLayout = ({ title, children }) => (
   <Toggle>
     {({ on, toggle }) => (
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: "56px auto",
+          height: "100%",
+        }}
+      >
         <Toolbar colored nav={<Nav onClick={toggle} />} title={title} />
 
         <Drawer
