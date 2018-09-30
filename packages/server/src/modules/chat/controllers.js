@@ -1,5 +1,6 @@
 import to from "await-to-js"
 import { translate } from "modules/translation/services"
+import { sendText } from "modules/chat/services"
 import User from "modules/user/model"
 import { Conversation, Message } from "modules/conversation/model"
 import { io } from "index"
@@ -24,7 +25,6 @@ export async function receive(req, res) {
     )
     if (error) return res.sendStatus(404)
     if (!conversation) {
-      console.log("no controller")
       conversation = new Conversation({
         user: toNumber,
         userLanguage: user.language,
@@ -51,6 +51,41 @@ export async function receive(req, res) {
 }
 
 export async function send(req, res) {
+  const textMessage = req.body.textBody
+  const fromNumber = req.body.user
+  const toNumber = req.body.sender
+  const timestamp = new Date().getTime()
+  const senderLanguage = req.body.senderLanguage
+  
+  let error, user
+  ;[error, user] = await to(User.findOne({ twilioNumber: fromNumber }))
 
-  res.sendStatus(200)
+  if (error || !user) return res.sendStatus(404)
+  else {    
+    const result = await translate(textMessage, senderLanguage)
+    if (result.error) return res.sendStatus(400)
+
+    let conversation
+    ;[error, conversation] = await to(
+      Conversation.findOne({ user: fromNumber, sender: toNumber }),
+    )
+    
+    if (error) return res.sendStatus(404)
+
+    const message = new Message({
+      author: fromNumber,
+      body: textMessage,
+      translation: result.translation,
+      timestamp,
+    })
+
+    conversation.messages = [message, ...conversation.messages]
+    ;[error] = await to(conversation.save())
+    if (error) return res.sendStatus(500)
+
+    sendText(result.translation, toNumber, fromNumber)
+
+    io.emit("NEW_MESSAGE", message)
+    res.sendStatus(200)
+  }
 }
