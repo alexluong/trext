@@ -5,6 +5,9 @@ const router = express.Router()
 // POST /chat/receive
 router.post("/receive", controllers.receive)
 
+// POST /chat/send
+router.post("/send", controllers.send)
+
 // GET /chat/getAll
 router.get("/getAll", controllers.getAll)
 

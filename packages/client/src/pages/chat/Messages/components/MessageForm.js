@@ -1,32 +1,36 @@
 import React from "react"
 import { TextField, Button } from "react-md"
+import { withUser } from "contexts/User"
+import axios from "axios"
+import config from "config"
 import "./MessageForm.css"
 
 class MessageForm extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			text: "",
-		}
-	}
+  constructor(props) {
+    super(props)
+    this.state = {
+      text: "",
+    }
+  }
 
   updateText = e => {
     this.setState({ text: e })
   }
 
-	sendMessage = e => {
-		e.preventDefault()
-		// if (this.state.text) {
-		// 	console.log(`send message: ${this.state.text}`)
-		// 	this.socket.emit("SEND_MESSAGE", {
-		// 		body: this.state.text,
-		// 		id: Math.floor(Math.random() * 1000),
-		// 		user: 'awd'
-		// 	})
-		// 	this.setState({ text: "" })
-		// }
-		console.log('send message to server')
-	}
+  sendMessage = e => {
+    e.preventDefault()
+
+    const conversation = this.props.conversation
+
+    axios.post(`${config.serverUrl}/chat/send`, {
+      textBody: this.state.text,
+      user: conversation.user,
+      sender: conversation.sender,
+      senderLanguage: conversation.senderLanguage,
+    })
+
+    this.setState({ text: "" })
+  }
 
   render() {
     return (
@@ -46,4 +50,4 @@ class MessageForm extends React.Component {
   }
 }
 
-export default MessageForm
+export default withUser(MessageForm)
