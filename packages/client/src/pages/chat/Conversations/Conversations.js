@@ -9,6 +9,9 @@ class ConversationsPage extends React.Component {
   state = { conversations: [], error: "" }
 
   async componentDidMount() {
+    if (!this.props.user) this.props.history.push("/sign-in")
+    else if (!this.props.user.twilioNumber) this.props.history.push("/set-up")
+
     this.socket = io("http://localhost:8000")
     this.socket.on("stuff", function(data) {
       console.log("update conversations list")

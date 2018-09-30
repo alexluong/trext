@@ -40,6 +40,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sid: {
+    type: String,
+  },
+  authToken: {
+    type: String,
+  },
+  language: {
+    type: String,
+  },
+  twilioNumber: {
+    type: String,
+  },
   twilioNumber: {
     type: String,
     unique: true,
