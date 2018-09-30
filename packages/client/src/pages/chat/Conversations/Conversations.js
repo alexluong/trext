@@ -9,15 +9,16 @@ class ConversationsPage extends React.Component {
   state = { conversations: [], error: "" }
 
   async componentDidMount() {
+    if (!this.props.user) this.props.history.push("/sign-in")
+    else if (!this.props.user.twilioNumber) this.props.history.push("/set-up")
+
     this.socket = io("http://localhost:8000")
     this.socket.on("stuff", function(data) {
       console.log("update conversations list")
     })
 
     try {
-      console.log(this.props.user)
       const conversations = await getConversations(this.props.user.twilioNumber)
-      console.log(conversations)
       this.setState({ conversations })
     } catch (error) {
       this.setState({ error })
@@ -42,7 +43,10 @@ class ConversationsPage extends React.Component {
                 primaryText={convo.sender}
                 secondaryText={convo.messages[0].translation}
                 onClick={() => {
-                  this.props.history.push(`/chat/${convo.sender}`)
+                  this.props.history.push({
+                    pathname: `/chat/${convo.sender}`,
+                    state: { conversation: convo },
+                  })
                 }}
               />
             ))

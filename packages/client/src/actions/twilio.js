@@ -33,7 +33,7 @@ export function createUserTwilio(language, twilioNumber, userID) {
       const errorMessage = getErrorMessage(error)
       reject(errorMessage)
     } else {
-      resolve(response.data.phoneNumbers)
+      resolve(response.data.user)
     }
   })
 }

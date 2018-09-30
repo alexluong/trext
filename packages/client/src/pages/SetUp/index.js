@@ -20,7 +20,8 @@ class SetUp extends Component {
         this.state.selectedNumber,
         this.props.user._id,
       )
-      console.log(user)
+      this.props.setUser(user)
+      this.props.history.push("/chat")
     } catch (error) {
       console.log("handleSave", error)
     }

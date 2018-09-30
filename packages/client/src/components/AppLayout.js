@@ -69,6 +69,6 @@ const navItems = [
   {
     primaryText: "Sign Out",
     component: Link,
-    to: "chat",
+    to: "/sign-out",
   },
 ]

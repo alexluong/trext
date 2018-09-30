@@ -46,8 +46,9 @@ export async function createUserTwilio(req, res) {
   try {
     existingUser = await User.findById(userID)
 
-    twilioUser = await client.api.accounts.create({
-      friendlyName: existingUser.fullName,
+    twilioUser = await client.incomingPhoneNumbers.create({
+      phoneNumber: twilioNumber,
+      smsUrl: "http://2ddd1d37.ngrok.io/chat/receive",
     })
 
     existingUser.sid = twilioUser.sid
@@ -57,7 +58,7 @@ export async function createUserTwilio(req, res) {
 
     await existingUser.save()
 
-    return res.status(200).send({ updatedUser: existingUser })
+    return res.status(200).send({ user: existingUser })
   } catch (error) {
     return res.status(400).send({ error: error })
   }

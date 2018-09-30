@@ -16,7 +16,7 @@ class VerifyPage extends React.Component {
     try {
       const user = await verify(code, id)
       this.props.setUser(user)
-      this.props.history.push("/")
+      this.props.history.push("/set-up")
     } catch (error) {
       this.setState({ error })
     }
