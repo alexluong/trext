@@ -1,30 +1,27 @@
 import React from "react"
 import AppLayout from "components/AppLayout"
-import { Avatar, List, ListItem } from "react-md"
+import { Avatar, List, ListItem, FontIcon } from "react-md"
 import io from "socket.io-client"
+import { withUser } from "contexts/User"
+import { getConversations } from "actions/chat"
 
 class ConversationsPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      conversations: [
-        { id: 0, recipient: "friend3", user: "me", lastMessage: "hi" },
-        { id: 1, recipient: "friend2", user: "me", lastMessage: "hii" },
-        {
-          id: 2,
-          recipient: "friend1",
-          user: "me",
-          lastMessage: "hiii",
-        },
-      ],
-    }
-  }
+  state = { conversations: [], error: "" }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.socket = io("http://localhost:8000")
     this.socket.on("stuff", function(data) {
       console.log("update conversations list")
     })
+
+    try {
+      console.log(this.props.user)
+      const conversations = await getConversations(this.props.user.twilioNumber)
+      console.log(conversations)
+      this.setState({ conversations })
+    } catch (error) {
+      this.setState({ error })
+    }
   }
 
   componentWillUnmount() {
@@ -32,24 +29,30 @@ class ConversationsPage extends React.Component {
   }
 
   render() {
+    const { conversations } = this.state
+
     return (
-      <AppLayout title="Conversations">
-        <List className="md-cell">
-          {this.state.conversations.map(convo => (
-            <ListItem
-              key={convo.id}
-              leftAvatar={<Avatar>{convo.recipient[0]}</Avatar>}
-              primaryText={convo.recipient}
-              secondaryText={convo.lastMessage}
-              onClick={() => {
-                this.props.history.push(`/chat/${convo.id}`)
-              }}
-            />
-          ))}
+      <AppLayout title="Conversations" showRightIcon>
+        <List>
+          {conversations.length > 0 ? (
+            conversations.map(convo => (
+              <ListItem
+                key={convo._id}
+                leftAvatar={<Avatar icon={<FontIcon>person</FontIcon>} />}
+                primaryText={convo.sender}
+                secondaryText={convo.messages[0].translation}
+                onClick={() => {
+                  this.props.history.push(`/chat/${convo.sender}`)
+                }}
+              />
+            ))
+          ) : (
+            <p>There's no conversation.</p>
+          )}
         </List>
       </AppLayout>
     )
   }
 }
 
-export default ConversationsPage
+export default withUser(ConversationsPage)

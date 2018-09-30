@@ -8,6 +8,7 @@ import VerifyPage from "pages/auth/Verify"
 import NotFoundPage from "pages/NotFound"
 import ConversationsPage from "pages/chat/Conversations"
 import MessagesPage from "pages/chat/Messages"
+import NewChatPage from "pages/chat/New"
 import SettingsPage from "pages/Settings"
 
 const Routes = () => (
@@ -16,6 +17,7 @@ const Routes = () => (
       <Route exact path="/" component={HomePage} />
       <Route path="/sign-in" component={SignInPage} />
       <Route path="/sign-up" component={SignUpPage} />
+      <Route path="/chat/new" component={NewChatPage} />
       <Route path="/chat/:id" component={MessagesPage} />
       <Route path="/chat" component={ConversationsPage} />
       <Route path="/settings" component={SettingsPage} />
