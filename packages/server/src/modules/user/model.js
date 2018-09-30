@@ -52,6 +52,11 @@ const UserSchema = new mongoose.Schema({
   twilioNumber: {
     type: String,
   },
+  twilioNumber: {
+    type: String,
+    unique: true,
+  },
+  language: String,
 })
 
 // Middleware executed before save - hash the user's password
@@ -145,4 +150,4 @@ UserSchema.methods.sendMessage = async function(message) {
 }
 
 // Export user model
-module.exports = mongoose.model("User", UserSchema)
+export default mongoose.model("User", UserSchema)

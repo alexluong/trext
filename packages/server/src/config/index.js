@@ -29,5 +29,8 @@ config.authyKey = process.env.AUTHY_API_KEY
 // when using docker-compose
 config.databaseUrl = process.env.DB_URL
 
+// Translate Project
+config.translateProjectId = process.TRANSLATE_PROJECT_ID
+
 // Export configuration object
 export default config
