@@ -1,0 +1,13 @@
+.message-list {
+  padding: 3rem 2rem; }
+  .message-list__item {
+    display: flex;
+    justify-content: flex-start; }
+    .message-list__item > span {
+      padding: 1rem;
+      background-color: #efefef;
+      border-radius: 5px; }
+    .message-list__item--user {
+      justify-content: flex-end; }
+      .message-list__item--user > span {
+        background-color: green; }
