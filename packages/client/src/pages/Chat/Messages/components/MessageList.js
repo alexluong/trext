@@ -1,6 +1,7 @@
 import React from "react"
-import { List, ListItem } from "react-md"
+// import { List, ListItem } from "react-md"
 import io from "socket.io-client"
+import "./MessageList.css"
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -12,30 +13,32 @@ class MessageList extends React.Component {
         { id: 2, user: "u", body: "bye" },
       ],
     }
-    this.socket = io("localhost:7340");
+    this.socket = io("localhost:7340")
     this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data);
+      addMessage(data)
     })
-  
-  const addMessage = data => {
-    console.log(data);
-    this.setState({ messages: [...this.state.messages, data] });
-    console.log(this.state.messages);
-  }
 
+    const addMessage = data => {
+      console.log(data)
+      this.setState({ messages: [...this.state.messages, data] })
+      console.log(this.state.messages)
+    }
   }
 
   render() {
     return (
-      <List>
+      <div className="message-list">
         {this.state.messages.map(msg => (
-          <ListItem
+          <div
             key={msg.id}
-            primaryText={msg.body}
-            secondaryText={msg.user}
-          />
+            className={`message-list__item ${
+              msg.user === "u" ? "message-list__item--user" : ""
+            }`}
+          >
+            <span>{msg.body}</span>
+          </div>
         ))}
-      </List>
+      </div>
     )
   }
 }
