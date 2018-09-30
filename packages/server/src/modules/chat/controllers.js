@@ -56,21 +56,29 @@ export async function send(req, res) {
   const toNumber = req.body.sender
   const timestamp = new Date().getTime()
   const senderLanguage = req.body.senderLanguage
-  
+
   let error, user
   ;[error, user] = await to(User.findOne({ twilioNumber: fromNumber }))
 
   if (error || !user) return res.sendStatus(404)
-  else {    
+  else {
     const result = await translate(textMessage, senderLanguage)
     if (result.error) return res.sendStatus(400)
-    console.log(req.body, result, '$$$$$$$')
+
     let conversation
     ;[error, conversation] = await to(
       Conversation.findOne({ user: fromNumber, sender: toNumber }),
     )
-    
     if (error) return res.sendStatus(404)
+    if (!conversation) {
+      conversation = new Conversation({
+        user: fromNumber,
+        userLanguage: user.language,
+        sender: toNumber,
+        senderLanguage,
+        messages: [],
+      })
+    }
 
     const message = new Message({
       author: fromNumber,
