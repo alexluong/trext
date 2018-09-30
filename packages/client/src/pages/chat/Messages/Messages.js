@@ -12,7 +12,7 @@ class MessagesPage extends React.Component {
           <MessageList
             messages={this.props.location.state.conversation.messages}
           />
-          <MessageForm />
+          <MessageForm conversation={this.props.location.state.conversation} />
         </div>
       </AppLayout>
     )

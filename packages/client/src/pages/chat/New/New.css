@@ -1,0 +1,8 @@
+.new-conv {
+	display: flex;
+	flex-direction: column;
+}
+.item {
+  width: 90%;
+  margin: 10px;
+}
