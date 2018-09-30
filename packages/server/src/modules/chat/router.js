@@ -2,8 +2,8 @@ import express from "express"
 import * as controllers from "./controllers"
 const router = express.Router()
 
-// POST /chat/sign-in
-router.post("/twilio", controllers.twilio)
+// POST /chat/receive
+router.post("/receive", controllers.receive)
 
 // POST /chat/send
 router.post("/send", controllers.send)
