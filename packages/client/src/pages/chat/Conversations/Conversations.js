@@ -15,9 +15,7 @@ class ConversationsPage extends React.Component {
     })
 
     try {
-      console.log(this.props.user)
       const conversations = await getConversations(this.props.user.twilioNumber)
-      console.log(conversations)
       this.setState({ conversations })
     } catch (error) {
       this.setState({ error })
@@ -42,7 +40,10 @@ class ConversationsPage extends React.Component {
                 primaryText={convo.sender}
                 secondaryText={convo.messages[0].translation}
                 onClick={() => {
-                  this.props.history.push(`/chat/${convo.sender}`)
+                  this.props.history.push({
+                    pathname: `/chat/${convo.sender}`,
+                    state: { conversation: convo },
+                  })
                 }}
               />
             ))

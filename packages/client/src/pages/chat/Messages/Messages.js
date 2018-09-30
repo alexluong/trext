@@ -7,9 +7,11 @@ import "./Messages.css"
 class MessagesPage extends React.Component {
   render() {
     return (
-      <AppLayout title="some number">
+      <AppLayout title={this.props.match.params.id}>
         <div className="messages">
-          <MessageList />
+          <MessageList
+            messages={this.props.location.state.conversation.messages}
+          />
           <MessageForm />
         </div>
       </AppLayout>

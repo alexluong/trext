@@ -1,19 +1,10 @@
 import React from "react"
-// import { List, ListItem } from "react-md"
 import io from "socket.io-client"
+import { withUser } from "contexts/User"
 import "./MessageList.css"
 
 class MessageList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      messages: [
-        { id: 0, user: "u", body: "hi" },
-        { id: 1, user: "not u", body: "hello" },
-        { id: 2, user: "u", body: "bye" },
-      ],
-    }
-  }
+  state = { messages: this.props.messages ? this.props.messages : [] }
 
   componentDidMount() {
     this.socket = io("http://localhost:8000")
@@ -28,21 +19,31 @@ class MessageList extends React.Component {
   }
 
   render() {
+    const { messages } = this.state
+    const userNumber = this.props.user.twilioNumber
+
     return (
       <div className="message-list">
-        {this.state.messages.map(msg => (
-          <div
-            key={msg.id}
-            className={`message-list__item ${
-              msg.user === "u" ? "message-list__item--user" : ""
-            }`}
-          >
-            <span>{msg.body}</span>
-          </div>
-        ))}
+        {messages.length > 0 ? (
+          messages.map(
+            msg =>
+              console.log(msg) || (
+                <div
+                  key={msg._id}
+                  className={`message-list__item ${
+                    msg.author === userNumber ? "message-list__item--user" : ""
+                  }`}
+                >
+                  <span>{msg.translation}</span>
+                </div>
+              ),
+          )
+        ) : (
+          <p>No messages</p>
+        )}
       </div>
     )
   }
 }
 
-export default MessageList
+export default withUser(MessageList)
