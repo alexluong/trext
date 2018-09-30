@@ -20,7 +20,7 @@ io.on("connection", () => {
 
 // App Setup
 app.use(morgan("combined"))
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
+app.use(cors({ credentials: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ type: "*/*", limit: "200mb" }))
 app.use("/", routes)
