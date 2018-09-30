@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import HomePage from "pages/Home"
 import SignInPage from "pages/auth/SignIn"
 import SignUpPage from "pages/auth/SignUp"
+import SignOutPage from "pages/auth/SignOut"
 import VerifyPage from "pages/auth/Verify"
 import NotFoundPage from "pages/NotFound"
 import ConversationsPage from "pages/chat/Conversations"
@@ -17,6 +18,7 @@ const Routes = () => (
       <Route exact path="/" component={HomePage} />
       <Route path="/sign-in" component={SignInPage} />
       <Route path="/sign-up" component={SignUpPage} />
+      <Route path="/sign-out" component={SignOutPage} />
       <Route path="/chat/new" component={NewChatPage} />
       <Route path="/chat/:id" component={MessagesPage} />
       <Route path="/chat" component={ConversationsPage} />
