@@ -11,4 +11,4 @@
     .message-list__item--user {
       justify-content: flex-end; }
       .message-list__item--user > span {
-        background-color: green; }
+        background-color: #009688; }

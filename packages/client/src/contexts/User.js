@@ -1,5 +1,4 @@
 import React from "react"
-import { stringify } from "querystring"
 
 const UserContext = React.createContext({})
 
