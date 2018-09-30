@@ -13,7 +13,6 @@ class MessageList extends React.Component {
         { id: 2, user: "u", body: "bye" },
       ],
     }
-<<<<<<< HEAD
   }
 
   componentDidMount() {
@@ -25,18 +24,6 @@ class MessageList extends React.Component {
   
   componentWillUnmount() {
     this.socket.disconnect()
-=======
-    this.socket = io("localhost:7340")
-    this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data)
-    })
-
-    const addMessage = data => {
-      console.log(data)
-      this.setState({ messages: [...this.state.messages, data] })
-      console.log(this.state.messages)
-    }
->>>>>>> c5a564c2365a1ceac38b2c445337ac4606c8eb93
   }
 
   render() {
