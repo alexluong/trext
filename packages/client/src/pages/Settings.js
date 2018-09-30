@@ -1,28 +1,24 @@
 import React from "react"
 import AppLayout from "components/AppLayout"
-import { SelectField, SelectionControlGroup } from "react-md"
+import { SelectField } from "react-md"
 
 const OBJECT_ITEMS = [
   {
-    label: "Apples",
-    value: "A",
+    label: "English",
+    value: "en",
   },
   {
-    label: "Bananas",
-    value: "B",
+    label: "Russian",
+    value: "ru",
   },
   {
-    label: "Cherries",
-    value: "C",
+    label: "Korean",
+    value: "ko",
   },
   {
-    label: "Durian",
-    value: "D",
-  },
-  {
-    label: "Elderberry",
-    value: "E",
-  },
+    label: "Spanish",
+    value: "es",
+  }
 ]
 
 const Settings = () => (
@@ -34,23 +30,6 @@ const Settings = () => (
       className="md-cell"
       position={SelectField.Positions.BELOW}
       menuItems={OBJECT_ITEMS}
-    />
-
-    <SelectionControlGroup
-      id="selection-control-group-radios"
-      name="radio-example"
-      type="radio"
-      defaultValue="A"
-      controls={[
-        {
-          label: "Show translation only.",
-          value: "A",
-        },
-        {
-          label: "Show translation and original text",
-          value: "B",
-        },
-      ]}
     />
   </AppLayout>
 )

@@ -1,6 +1,5 @@
 import React from "react"
 import { TextField, Button } from "react-md"
-import io from "socket.io-client"
 import "./MessageForm.css"
 
 class MessageForm extends React.Component {
@@ -9,7 +8,6 @@ class MessageForm extends React.Component {
 		this.state = {
 			text: "",
 		}
-		this.socket = io("localhost:7340")
 	}
 
 	updateText = e => {
@@ -18,15 +16,16 @@ class MessageForm extends React.Component {
 
 	sendMessage = e => {
 		e.preventDefault()
-		if (this.state.text) {
-			console.log(`send message: ${this.state.text}`)
-			this.socket.emit("SEND_MESSAGE", {
-				body: this.state.text,
-				id: Math.floor(Math.random() * 1000),
-				user: 'awd'
-			})
-			this.setState({ text: "" })
-		}
+		// if (this.state.text) {
+		// 	console.log(`send message: ${this.state.text}`)
+		// 	this.socket.emit("SEND_MESSAGE", {
+		// 		body: this.state.text,
+		// 		id: Math.floor(Math.random() * 1000),
+		// 		user: 'awd'
+		// 	})
+		// 	this.setState({ text: "" })
+		// }
+		console.log('send message to server')
 	}
 
 	render() {

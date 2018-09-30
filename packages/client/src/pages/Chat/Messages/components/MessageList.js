@@ -12,17 +12,17 @@ class MessageList extends React.Component {
         { id: 2, user: "u", body: "bye" },
       ],
     }
-    this.socket = io("localhost:7340");
-    this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data);
-    })
-  
-  const addMessage = data => {
-    console.log(data);
-    this.setState({ messages: [...this.state.messages, data] });
-    console.log(this.state.messages);
   }
 
+  componentDidMount() {
+    this.socket = io("localhost:7340")
+    this.socket.on("RECEIVE_MESSAGE", function(data) {
+      this.setState({ messages: [...this.state.messages, data] })
+    })
+  }
+  
+  componentWillUnmount() {
+    this.socket.disconnect()
   }
 
   render() {
