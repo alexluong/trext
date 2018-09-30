@@ -8,10 +8,7 @@ import morgan from "morgan"
 import cors from "cors"
 import http from "http"
 import routes from "config/routes"
-import twilio from 'twilio'
 import SocketIO from "socket.io"
-
-const twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const app = express()
 const server = http.Server(app)
@@ -36,4 +33,3 @@ server.listen(port, () => {
 
 export default server
 export { io }
-export { twilioClient }

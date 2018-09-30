@@ -64,7 +64,7 @@ export async function send(req, res) {
   else {    
     const result = await translate(textMessage, senderLanguage)
     if (result.error) return res.sendStatus(400)
-
+    console.log(req.body, result, '$$$$$$$')
     let conversation
     ;[error, conversation] = await to(
       Conversation.findOne({ user: fromNumber, sender: toNumber }),
@@ -83,11 +83,12 @@ export async function send(req, res) {
     ;[error] = await to(conversation.save())
     if (error) return res.sendStatus(500)
 
-    sendText(result.translation, toNumber, fromNumber)
+    sendText(result.translation, toNumber, fromNumber, user.sid, user.authToken)
 
     io.emit("NEW_MESSAGE", message)
     res.sendStatus(200)
   }
+}
 
 export async function getAll(req, res) {
   let error, conversations
