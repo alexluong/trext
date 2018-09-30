@@ -13,7 +13,7 @@ const Nav = ({ onClick }) => (
   </Button>
 )
 
-const AppLayout = ({ title, children }) => (
+const AppLayout = ({ showRightIcon, title, children }) => (
   <Toggle>
     {({ on, toggle }) => (
       <div
@@ -23,7 +23,18 @@ const AppLayout = ({ title, children }) => (
           height: "100%",
         }}
       >
-        <Toolbar colored nav={<Nav onClick={toggle} />} title={title} />
+        <Toolbar
+          colored
+          nav={<Nav onClick={toggle} />}
+          title={title}
+          actions={
+            showRightIcon ? (
+              <Button component={Link} icon to="/chat/new">
+                note_add
+              </Button>
+            ) : null
+          }
+        />
 
         <Drawer
           type={Drawer.DrawerTypes.TEMPORARY}
@@ -37,6 +48,10 @@ const AppLayout = ({ title, children }) => (
     )}
   </Toggle>
 )
+
+AppLayout.defaultProps = {
+  showRightIcon: false,
+}
 
 export default AppLayout
 

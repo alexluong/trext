@@ -88,4 +88,14 @@ export async function send(req, res) {
     io.emit("NEW_MESSAGE", message)
     res.sendStatus(200)
   }
+
+export async function getAll(req, res) {
+  let error, conversations
+  ;[error, conversations] = await to(
+    Conversation.find({ user: `+${req.query.number}` }),
+  )
+  console.log(conversations)
+  if (error) return res.status(500).send({ message: "Server error." })
+  else if (!conversations) return res.status(200).send({ conversations: [] })
+  else return res.status(200).send({ conversations })
 }
