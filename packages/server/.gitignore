@@ -1,8 +1,4 @@
 node_modules
-<<<<<<< HEAD
-.env
-=======
 dist
 .env
 /gcp_key.json
->>>>>>> 13517a3974412a60159680cbb7b58c35706187e8
