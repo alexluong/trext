@@ -4,7 +4,7 @@ import User from "modules/user/model"
 import { Conversation, Message } from "modules/conversation/model"
 import { io } from "index"
 
-export async function twilio(req, res) {
+export async function receive(req, res) {
   const textMessage = req.body.Body
   const fromNumber = req.body.From
   const toNumber = req.body.To
@@ -13,17 +13,18 @@ export async function twilio(req, res) {
   let error, user
   ;[error, user] = await to(User.findOne({ twilioNumber: toNumber }))
 
-  if (error || !user) res.sendStatus(404)
+  if (error || !user) return res.sendStatus(404)
   else {
     const result = await translate(textMessage, user.language)
-    if (result.error) res.sendStatus(400)
+    if (result.error) return res.sendStatus(400)
 
     let conversation
     ;[error, conversation] = await to(
-      User.findOne({ user: toNumber, send: fromNumber }),
+      Conversation.findOne({ user: toNumber, sender: fromNumber }),
     )
-    if (error) res.sendStatus(404)
+    if (error) return res.sendStatus(404)
     if (!conversation) {
+      console.log("no controller")
       conversation = new Conversation({
         user: toNumber,
         userLanguage: user.language,
@@ -42,7 +43,7 @@ export async function twilio(req, res) {
 
     conversation.messages = [message, ...conversation.messages]
     ;[error] = await to(conversation.save())
-    if (error) res.sendStatus(500)
+    if (error) return res.sendStatus(500)
 
     io.emit("NEW_MESSAGE", message)
     res.sendStatus(200)
