@@ -1,22 +1,57 @@
 import React from "react"
 import AppLayout from "components/AppLayout"
+import { SelectField, SelectionControlGroup } from "react-md"
+
+const OBJECT_ITEMS = [
+  {
+    label: "Apples",
+    value: "A",
+  },
+  {
+    label: "Bananas",
+    value: "B",
+  },
+  {
+    label: "Cherries",
+    value: "C",
+  },
+  {
+    label: "Durian",
+    value: "D",
+  },
+  {
+    label: "Elderberry",
+    value: "E",
+  },
+]
 
 const Settings = () => (
   <AppLayout title="Settings">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas augue
-      sapien, tristique sodales dui et, vulputate dignissim elit. Class aptent
-      taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-      himenaeos. Vestibulum pretium posuere velit. Vestibulum lobortis hendrerit
-      lectus, nec commodo nunc aliquet non. Ut vel tortor dolor. Nulla id
-      tincidunt tellus. Vivamus nec sem id ipsum consectetur consequat vel eget
-      ligula. Duis nulla lacus, auctor nec semper ac, pulvinar eu diam. Etiam
-      non nibh ut sapien accumsan euismod eget sit amet metus. Mauris euismod
-      metus lacus, at tempor sem dapibus vitae. Fusce lobortis velit elementum
-      finibus imperdiet. Mauris hendrerit pulvinar odio vel euismod. Nam quis
-      eros ac nibh lobortis aliquam. Donec ullamcorper luctus magna, id mollis
-      orci pretium eget.
-    </p>
+    <SelectField
+      id="select-field-3"
+      label="Select Your Language"
+      placeholder="Placeholder"
+      className="md-cell"
+      position={SelectField.Positions.BELOW}
+      menuItems={OBJECT_ITEMS}
+    />
+
+    <SelectionControlGroup
+      id="selection-control-group-radios"
+      name="radio-example"
+      type="radio"
+      defaultValue="A"
+      controls={[
+        {
+          label: "Show translation only.",
+          value: "A",
+        },
+        {
+          label: "Show translation and original text",
+          value: "B",
+        },
+      ]}
+    />
   </AppLayout>
 )
 export default Settings

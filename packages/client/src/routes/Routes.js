@@ -5,8 +5,8 @@ import HomePage from "pages/Home"
 import SignInPage from "pages/auth/SignIn"
 import SignUpPage from "pages/auth/SignUp"
 import NotFoundPage from "pages/NotFound"
-import ConversationsPage from "pages/chat/Conversations"
-import MessagesPage from "pages/chat/Messages"
+import ConversationsPage from "pages/Chat/Conversations"
+import MessagesPage from "pages/Chat/Messages"
 import SettingsPage from "pages/Settings"
 
 const Routes = () => (

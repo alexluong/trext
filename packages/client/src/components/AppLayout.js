@@ -38,12 +38,12 @@ const navItems = [
   {
     primaryText: "Conversations",
     component: Link,
-    to: "chat",
+    to: "/chat",
   },
   {
     primaryText: "Settings",
     component: Link,
-    to: "settings",
+    to: "/settings",
   },
   {
     primaryText: "Sign Out",
