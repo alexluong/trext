@@ -91,7 +91,7 @@ export async function send(req, res) {
     ;[error] = await to(conversation.save())
     if (error) return res.sendStatus(500)
 
-    sendText(result.translation, toNumber, fromNumber, user.sid, user.authToken)
+    sendText(result.translation, toNumber, fromNumber, user.accountSid)
 
     io.emit("NEW_MESSAGE", message)
     res.sendStatus(200)

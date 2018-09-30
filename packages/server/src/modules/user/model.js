@@ -40,12 +40,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  sid: {
-    type: String,
-  },
-  authToken: {
-    type: String,
-  },
+  sid: String,
+  accountSid: String,
   language: {
     type: String,
   },

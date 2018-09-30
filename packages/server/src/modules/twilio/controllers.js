@@ -51,8 +51,9 @@ export async function createUserTwilio(req, res) {
       smsUrl: "http://2ddd1d37.ngrok.io/chat/receive",
     })
 
+    console.log(twilioUser)
     existingUser.sid = twilioUser.sid
-    existingUser.authToken = twilioUser.authToken
+    existingUser.accountSid = twilioUser.accountSid
     existingUser.language = language
     existingUser.twilioNumber = twilioNumber
 
